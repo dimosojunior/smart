@@ -1,0 +1,693 @@
+{% extends 'SmartInvigilationApp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+     *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        font-size: 16px;
+
+      }
+      ul li{
+        list-style: none;
+      }
+    
+ h5{
+  font-size: 16px;
+  font-family: sans-serif;
+ }
+		
+
+	</style>
+
+</head>
+<body>
+	
+<div class="container-fluid">
+
+
+<center>
+		<h1 style="color: white;font-weight: bold;margin-top: 20px;">SMART INVIGILATION SYSTEM</h1>
+
+{% if user.is_authenticated %}
+   
+    {% if user.is_superuser %}
+    <a href="/admin">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="font-size: 18px;margin-right: 20px;">Admin</button></a>
+ {% else %}
+ <h1 style="color: white;font-weight: bold;margin-top: 10px;font-size: 20px;color: red;">Welcome {{user.username}}</h1>
+
+ {% endif %}
+
+
+  {% else %}
+   <h1 style="color: white;font-weight: bold;margin-top: 10px;font-size: 20px;color: red;">To start invigilation click login button to be verified!!</h1>
+  {% endif %}
+
+        {% if messages %}
+{% for message in messages %}
+     
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong style="color: red;font-size: 16px;">{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    {% endfor %}
+  {% endif %}
+
+	</center>
+
+
+<!-- KAMA USER AMIJISAJILI ZINAANZIA HAPA -->
+
+{% if user.is_authenticated %}
+
+
+<div class="buttons-container">
+
+
+	
+<!-- <center>
+		<h1 style="color: white;font-weight: bold;">SMART INVIGILATION<br> SYSTEM</h1>
+	</center> -->
+
+<div class="buttons"><!-- mwanzo wa buttons-div -->
+
+<label>
+		<input type="checkbox" name="check">
+		<span data-bs-toggle="modal" data-bs-target="#record"></span>
+		<i class="fa fa-camera icon" data-bs-toggle="modal" data-bs-target="#record"> RECORD</i>
+	</label>
+
+	<label>
+		<input type="checkbox" name="check">
+		<span data-bs-toggle="modal" data-bs-target="#startexternal"></span>
+		<i class="fa fa-camera icon" data-bs-toggle="modal" data-bs-target="#startexternal"> CAMERA</i>
+	</label>
+
+
+	<label>
+		<input type="checkbox" name="check">
+		<span data-bs-toggle="modal" data-bs-target="#startwifi"></span>
+		<i class="fa fa-wifi icon" data-bs-toggle="modal" data-bs-target="#startwifi"> WIFI</i>
+	</label>
+
+
+<a href="{% url 'logout' %}" style="text-decoration: none;">
+	<label>
+		<!-- <input type="checkbox" name="check"> -->
+		<span></span>
+		<i class="fa fa-user icon"> LOGOUT</i>
+	</label></a>
+
+	<label>
+		<input type="checkbox" name="check">
+		<span data-bs-toggle="modal" data-bs-target="#login2"></span>
+		<i class="fa fa-user icon" data-bs-toggle="modal" data-bs-target="#login2"> LOGIN</i>
+	</label>
+
+	<label>
+		<input type="checkbox" name="check">
+		<span data-bs-toggle="modal" data-bs-target="#help"></span>
+		<i class="fa fa-moon icon" data-bs-toggle="modal" data-bs-target="#help"> HELP</i>
+	</label>
+
+	
+	
+
+</div><!-- mwisho wa buttons div -->
+
+
+
+
+</div><!-- mwisho wa butons-container -->
+
+
+
+<!-- KAMA USER AMIJISAJILI ZINAISHIA HAPA -->
+
+
+
+{% else %}
+
+
+
+<!-- KAMA USER HAJAJISAJILI ZINAANZIA HAPA -->
+
+
+
+<div class="buttons-container">
+
+
+  
+<!-- <center>
+    <h1 style="color: white;font-weight: bold;">SMART INVIGILATION<br> SYSTEM</h1>
+  </center> -->
+
+<div class="buttons"><!-- mwanzo wa buttons-div -->
+
+<label>
+    <input type="checkbox" name="check">
+    <span data-bs-toggle="modal" data-bs-target="#webcam"></span>
+    <i class="fa fa-camera icon" data-bs-toggle="modal" data-bs-target="#webcam"> RECORD</i>
+  </label>
+
+  <label>
+    <input type="checkbox" name="check">
+    <span data-bs-toggle="modal" data-bs-target="#external"></span>
+    <i class="fa fa-camera icon" data-bs-toggle="modal" data-bs-target="#external"> CAMERA</i>
+  </label>
+
+
+  <label>
+    <input type="checkbox" name="check">
+    <span data-bs-toggle="modal" data-bs-target="#wifi"></span>
+    <i class="fa fa-wifi icon" data-bs-toggle="modal" data-bs-target="#wifi"> WIFI</i>
+  </label>
+
+
+
+  <label>
+    <!-- <input type="checkbox" name="check"> -->
+    <span data-bs-toggle="modal" data-bs-target="#logout2"></span>
+    <i class="fa fa-user icon" data-bs-toggle="modal" data-bs-target="#logout2"> LOGOUT</i>
+  </label>
+
+  <label>
+    <input type="checkbox" name="check">
+    <span data-bs-toggle="modal" data-bs-target="#login"></span>
+    <i class="fa fa-user icon" data-bs-toggle="modal" data-bs-target="#login"> LOGIN</i>
+  </label>
+
+  <label>
+    <input type="checkbox" name="check">
+    <span data-bs-toggle="modal" data-bs-target="#help"></span>
+    <i class="fa fa-moon icon" data-bs-toggle="modal" data-bs-target="#help"> HELP</i>
+  </label>
+
+  
+  
+
+</div><!-- mwisho wa buttons div -->
+
+
+
+
+</div><!-- mwisho wa butons-container -->
+
+
+
+<!-- KAMA USER HAJAJISAJILI ZINAISHIA HAPA -->
+
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for LOGIN BUTTON -->
+
+
+<div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"> SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="font-size: 22px;">
+
+        
+         <div class="login">
+    <h2>LOGIN HERE</h2>
+    <form method="POST" action="{% url 'signin' %}">
+        {% csrf_token %}
+
+      <div class="user-box">
+        <input type="username" name="username" required>
+        <label>Username</label>
+      </div>
+
+      <div class="user-box">
+        <input type="password" name="password" required>
+        <label>Password</label>
+      </div>
+     <!--  <p><input type="checkbox">Remember me <span>Forgot?</span></p> -->
+
+        <a href="" class="link-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+
+
+        <button type="submit"  style="background-color: green;color: white;padding: 10px;padding-right: 20px;padding-left: 20px;font-size: 20px;border-radius: 10px;">Login</button>
+      </a>
+
+     <!--  <div class="options-02">
+                    <p>You don't have an account? <a href="" style="font-size: 18px;color: lightblue;font-weight: bold;text-decoration: none;">Sign Up</a></p>
+                </div> -->
+    </form>
+  </div>
+
+</div> 
+<!-- mwisho wa modal-body -->
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+
+
+
+
+             </div>
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for LOGIN BUTTON -->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for HELP BUTTON -->
+
+
+<div class="modal fade" id="help" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+          <li><span style="color: red">Step 1:</span> Login using a correct password and username.</li>
+          <li><span style="color: red">Step 2:</span> Click Webcam button to start invigilation by using Laptop camera to capture student's faces</li>
+          <li><span style="color: red">Step 3:</span> Click Webcam button to start invigilation by using MobilePhone camera to capture student's faces</li>
+          <li><span style="color: red">Step 4:</span> Click Webcam button to start invigilation by using Wi-fi camera to capture student's faces</li>
+          <li><span style="color: red">Step 5:</span> Click Logout button to logout from the system</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for HELP BUTTON -->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for WEBCAM NOT LOGIN BUTTON -->
+
+
+<div class="modal fade" id="webcam" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Sorry!!!! <br> To start Invigilation of students you have to login first.</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for WEBCAM NOT LOGIN BUTTON -->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for EXTERNAL NOT LOGIN BUTTON -->
+
+
+<div class="modal fade" id="external" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Sorry!!!! <br> To start Invigilation of students you have to login first.</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for EXTERNAL NOT LOGIN BUTTON -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for WIFI NOT LOGIN BUTTON -->
+
+
+<div class="modal fade" id="wifi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Sorry!!!! <br> To start Invigilation of students you have to login first.</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for WIFI NOT LOGIN BUTTON -->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for LOGOUT2 NOT LOGIN BUTTON -->
+
+
+<div class="modal fade" id="logout2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Sorry!!!! <br> You cannot logout from the system without logging in.</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for LOGOUT2 NOT LOGIN BUTTON -->
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!-- Modal  for LOGIN2 NOT LOGIN BUTTON -->
+
+
+<div class="modal fade" id="login2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Sorry!!!! <br> You are already authenticated as {{user.username}} in this system.</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal  for LOGIN2 NOT LOGIN BUTTON -->
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!--MWANZO WA  Modal   TO START RECORDING BUTTON -->
+
+
+<div class="modal fade" id="record" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Hey {{user.username}}, <br> Are you sure you want to start Recording a Video ???</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <a href="{% url 'record_video' %}">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="font-size: 18px;margin-right: 20px;">Confirm</button></a>
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal   TO START WEBCAM BUTTON -->
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!--MWISHO WA  Modal   TO START EXTERNAL BUTTON -->
+
+
+<div class="modal fade" id="startexternal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Hey {{user.username}}, <br> Are you sure you want to start Invigilation of students???</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <a href="{% url 'starting_page' %}">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="font-size: 18px;margin-right: 20px;">Confirm</button></a>
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal   TO START EXTERNAL BUTTON -->
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------- -->
+
+<!--MWISHO WA  Modal   TO START WIFI BUTTON -->
+
+
+<div class="modal fade" id="startwifi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">WELCOME TO SMART INVIGILATION SYSTEM </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+      <div class="modal-body" style="font-size: 18px;background-color:rgb(5,5,49);color: white;font-family: sans-serif;">
+
+        <ul>
+         <li>Hey {{user.username}}, <br> Are you sure you want to start Invigilation of students using Wi-Fi camera ???</li>
+        </ul>
+        </div>
+
+
+      <div class="modal-footer">
+        <a href="{% url 'homePage' ">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="font-size: 18px;margin-right: 20px;">Confirm</button></a>
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size: 18px;">Close</button>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!--MWISHO WA  Modal   TO START WIFI BUTTON -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</div><!-- mwisho wa container -->
+</body>
+</html>
+{% endblock %}
